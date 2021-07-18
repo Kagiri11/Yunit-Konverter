@@ -18,6 +18,7 @@ class Linkedlist<T> {
         return this
     }
 
+
     //Append adds a new node to the end of the list
     fun append(value:T):Linkedlist <T>{
         if (isEmpty()){
