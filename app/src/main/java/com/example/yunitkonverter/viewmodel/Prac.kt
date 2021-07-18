@@ -1,43 +1,45 @@
 package com.example.yunitkonverter.viewmodel
 
-fun main(){
-    val length = listOf<String>(
-        "Kilometre",
-        "Miles",
-        "Metre",
-        "Centimetre",
-        "Millimetre",
-        "Micrometre",
-    )
+import com.example.yunitkonverter.practice.LinkedList
+import com.example.yunitkonverter.practice.Node
 
+fun main() {
+    val node1 = Node(value = 1)
+    val node2 = Node(value = 2)
+    val node3 = Node(value = 3)
 
-    println(convertLength(50.2,"Metre","else"))
+    node1.next = node2
+    node2.next = node3
+    println(node1)
 
+    val list = LinkedList<Int>()
+    list.push(3).push(12).push(8).append(10)
+    println(list)
+    val secondNode = list.nodeAt(1)!!
+    list.insert(13,secondNode)
+    println(list)
+
+    var newList = LinkedList<Int>()
+    println(newList)
+    newList.push(10).push(20)
+    val specificNode = newList.nodeAt(0)
+    newList.insert(30,specificNode!!)
+    println(newList)
+    newList.pop()
+    println(newList)
+    newList.removeLast()
+    println(newList)
 }
 
-fun convertLength(value:Double,fromWhat:String,toWhat:String):Double{
-    return when(fromWhat){
-        "Kilometre"->  {
-            when(toWhat){
-                "Metre" -> value*1000
-                "Kilometre"-> value
-                else -> value*100000
-            }
-        }
-        "Metre"->  {
-            when(toWhat){
-                "Kilometre" -> value/1000
-                "Metre"-> value
-                else -> value*100
-            }
-        }
-        else->{
-            when(toWhat){
-                "Kilometre" -> value/100000
-                "Metre"-> value/100
-                else -> value
-            }
-        }
-  }
+fun isDivisible(value: Int, divisor: Int) {
+    if (value % divisor == 0) {
+        val numberOfTimesDivisible = value / divisor
+        println("Yep it is divisible by $divisor $numberOfTimesDivisible times")
+    } else {
+        println("No it is not divisible :(")
+    }
+}
 
+fun getNameLength(name: String?): Int {
+    return name?.length ?: 0
 }
