@@ -1,19 +1,18 @@
 package com.example.yunitkonverter.practice.classes
 
-fun main(){
-    val grace = Student(name = "Grace", gender = "Female",id=2345)
-    val lucy = grace.copy(id = 85)
-    lucy.name = "Lucy"
-
-    val (x,y,z) = grace
-    val tshirt1 = Tshirt(price = 60.5)
-    val tshirt2 = Tshirt(price = 70.0)
-    val destination = Address("Eldoret")
-    val cartOne = ShoppingCart(tShirts = listOf(tshirt1,tshirt2),destination)
-    val mirian = User(name = "Mirian",email = "miri@gmail.brazil",cartOne)
-    var mirianCartPrice = mirian.cart.getTotalCost()
-
-    println(mirianCartPrice)
+class Canter( override val type: String) : Vehicle{
+    override var speed: Double = 0.0
 
 }
+
+fun main(){
+    val canter1 = Canter("Kanter")
+    canter1.speed =15.2
+    canter1.accelerate(10.2)
+    canter1.turn("right")
+    println(canter1.describe())
+
+
+}
+
 
