@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.widget.ResourceManagerInternal.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import com.example.yunitkonverter.R
 import com.example.yunitkonverter.databinding.FragmentConverterBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.reflect.Array.get
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -39,10 +43,20 @@ class ConverterFragment : Fragment() {
             "Light Year"
         )
         val measurements = listOf("Length","Area","Speed","Currency","Time","Volume","Mass")
-        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.support_simple_spinner_dropdown_item,length)
-        val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.support_simple_spinner_dropdown_item,measurements)
+        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,length)
+        val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner2,measurements)
         binding.spCategories.adapter = categoriesAdapter
         binding.spMeasurements.adapter=measurementsAdapter
+
+        showDate()
         return binding.root
+    }
+
+    //A function to show today's date on the screen
+    private fun showDate(){
+        val today = Calendar.DATE
+        val dateFormat = SimpleDateFormat("dd.MM.yyy")
+        val currentDate = dateFormat.format(Date())
+        binding.tvDate.text =currentDate
     }
 }
