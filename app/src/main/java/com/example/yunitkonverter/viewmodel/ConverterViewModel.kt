@@ -17,7 +17,7 @@ class ConverterViewModel {
         "Furlong",
         "Light Year"
     )
-    fun convertLength(value:Double):Double{
+    fun convertLength(value:Double,selectedValue :String):Double{
         return when(value){
             4.5 -> value*0.9
             else -> value*0.4

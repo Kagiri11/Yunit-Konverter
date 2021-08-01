@@ -1,77 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ConverterFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--region PickerArea-->
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/length_gradient"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1">
+        android:layout_height="match_parent"
+        tools:context=".ui.ConverterFragment">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/asap"
-            android:text="July 15, 2021"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/asap"
-            android:text="Length"
-            android:textColor="@color/white"
-            android:textSize="30sp"
+        <!--region PickerArea-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/length_gradient"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_converterOne"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="120dp"
-            android:inputType="numberDecimal"
-            android:textColor="@color/white"
-            android:textSize="40sp"
-            android:fontFamily="@font/asap"
-            android:backgroundTint="@color/white"
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/asap"
+                android:text="July 15, 2021"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/spMeasurements"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/asap"
+                android:text="Length"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_converterOne"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+
+                android:layout_marginBottom="130dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/asap"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/spCategories"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spCategories"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                app:layout_constraintStart_toEndOf="@+id/et_converterOne"
+                app:layout_constraintTop_toTopOf="@id/et_converterOne" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--endregion-->
+
+        <!--region DisplayArea-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintVertical_weight="1">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_converterTwo"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="40dp"
+
+                android:inputType="numberDecimal"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:fontFamily="@font/asap"
+                android:backgroundTint="@color/lengthEnd"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--endregion-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--endregion-->
-
-    <!--region DisplayArea-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_weight="1" />
-
-    <!--endregion-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
