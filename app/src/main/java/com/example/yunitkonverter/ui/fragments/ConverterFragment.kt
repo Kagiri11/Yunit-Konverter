@@ -1,4 +1,4 @@
-package com.example.yunitkonverter.ui
+package com.example.yunitkonverter.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.ResourceManagerInternal.get
 import androidx.databinding.DataBindingUtil
@@ -26,7 +27,7 @@ class ConverterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding : FragmentConverterBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_converter, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_converter, container, false)
         val length = listOf(
             "Kilometre",
             "Miles",
@@ -42,11 +43,23 @@ class ConverterFragment : Fragment() {
             "Furlong",
             "Light Year"
         )
+
+
         val measurements = listOf("Length","Area","Speed","Currency","Time","Volume","Mass")
         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,length)
         val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner2,measurements)
         binding.spCategories.adapter = categoriesAdapter
         binding.spMeasurements.adapter=measurementsAdapter
+
+        binding.spMeasurements.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
 
         showDate()
         return binding.root
