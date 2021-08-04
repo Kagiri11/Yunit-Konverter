@@ -14,11 +14,11 @@
 
         <!--region PickerArea-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/upperLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/length_gradient"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintBottom_toTopOf="@id/lowerLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
 
         <!--region DisplayArea-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/lowerLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
@@ -86,7 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toBottomOf="@id/upperLayout"
             app:layout_constraintVertical_weight="1">
 
             <androidx.appcompat.widget.AppCompatEditText
