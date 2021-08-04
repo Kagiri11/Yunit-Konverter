@@ -1,5 +1,6 @@
 package com.example.yunitkonverter.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -66,6 +67,13 @@ class ConverterFragment : Fragment() {
             "ft/sec",
             "knot",
         )
+        val currency = listOf(
+            "American Dollar",
+            "Australian Dollar",
+            "British Pound",
+            "Euro",
+            "Kenyan Shs",
+        )
 
         val measurements = listOf("Length","Area","Speed","Currency","Time","Volume","Mass")
         val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner2,measurements)
@@ -74,6 +82,7 @@ class ConverterFragment : Fragment() {
         var measurementItem = Any()
 
         binding.spMeasurements.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 var item = adapter?.getItemAtPosition(position)
                 when(item){
@@ -83,14 +92,21 @@ class ConverterFragment : Fragment() {
                         binding.spCategories.adapter = categoriesAdapter
                     }
                     "Time" -> {
-                        Toast.makeText(activity?.applicationContext,"Area has been selected",Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity?.applicationContext,"Time has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,time)
                         binding.spCategories.adapter = categoriesAdapter
                     }
                     "Speed" -> {
-                        Toast.makeText(activity?.applicationContext,"Area has been selected",Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity?.applicationContext,"Speed has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,speed)
                         binding.spCategories.adapter = categoriesAdapter
+                        binding.upperLayout.background = resources.getDrawable(R.drawable.speed_gradient)
+                    }
+                    "Currency" -> {
+                        Toast.makeText(activity?.applicationContext,"Currency has been selected",Toast.LENGTH_LONG).show()
+                        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,currency)
+                        binding.spCategories.adapter = categoriesAdapter
+                        binding.upperLayout.background = resources.getDrawable(R.drawable.currency_gradient)
                     }
                     else-> Toast.makeText(activity?.applicationContext,"nothing has been selected",Toast.LENGTH_LONG).show()
                 }
