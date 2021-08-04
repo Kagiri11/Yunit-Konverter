@@ -4,7 +4,8 @@
 
     android:gravity="center"
     android:text="Mundu"
-    android:textSize="30sp"
+    android:textSize="20sp"
+
     android:fontFamily="@font/asap"
     android:layout_height="50dp"
     android:ellipsize="marquee"

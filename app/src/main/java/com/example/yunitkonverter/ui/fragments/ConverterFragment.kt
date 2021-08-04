@@ -77,7 +77,11 @@ class ConverterFragment : Fragment() {
 
         val measurements = listOf("Length","Area","Speed","Currency","Time","Volume","Mass")
         val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner2,measurements)
-        binding.spMeasurements.adapter=measurementsAdapter
+        binding.spMeasurements.apply {
+            adapter=measurementsAdapter
+            height to 30
+        }
+
 
         var measurementItem = Any()
 
@@ -89,7 +93,9 @@ class ConverterFragment : Fragment() {
                     "Length" -> {
                         Toast.makeText(requireContext(),"Length has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,length)
+                        binding.upperLayout.background = resources.getDrawable(R.drawable.length_gradient)
                         binding.spCategories.adapter = categoriesAdapter
+                        binding.etConverterTwo.setTextColor(resources.getColor(R.color.etLength))
                     }
                     "Time" -> {
                         Toast.makeText(activity?.applicationContext,"Time has been selected",Toast.LENGTH_LONG).show()
