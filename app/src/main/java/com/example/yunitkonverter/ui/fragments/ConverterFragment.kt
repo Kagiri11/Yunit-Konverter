@@ -20,6 +20,7 @@ class ConverterFragment : Fragment() {
     lateinit var binding : FragmentConverterBinding
     var itemBefore = ""
     var itemAfter = ""
+    var measurementItem = Any()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,8 +51,6 @@ class ConverterFragment : Fragment() {
             "km/hr",
             "mi/hr",
             "mtr/sec",
-            "ft/sec",
-            "knot",
         )
         val currency = listOf(
             "American Dollar",
@@ -60,16 +59,13 @@ class ConverterFragment : Fragment() {
             "Euro",
             "Kenyan Shs",
         )
-
         val measurements = listOf("Length","Speed","Currency","Time")
+
         val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner2,measurements)
         binding.spMeasurements.apply {
             adapter=measurementsAdapter
             height to 30
         }
-
-
-        var measurementItem = Any()
 
 
         binding.spMeasurements.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
@@ -78,15 +74,14 @@ class ConverterFragment : Fragment() {
                 val item = adapter?.getItemAtPosition(position)
                 when(item){
                     "Length" -> {
-                        Toast.makeText(requireContext(),"Length has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,length)
                         binding.upperLayout.background = resources.getDrawable(R.drawable.length_gradient)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
+                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.etLength))
                         binding.tvResult.setTextColor(resources.getColor(R.color.etLength))
                     }
                     "Time" -> {
-                        Toast.makeText(activity?.applicationContext,"Time has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,time)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
@@ -96,13 +91,16 @@ class ConverterFragment : Fragment() {
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,speed)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
+                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.speedStart))
                         binding.upperLayout.background = resources.getDrawable(R.drawable.speed_gradient)
+                        binding.tvResult.setTextColor(resources.getColor(R.color.speedStart))
                     }
                     "Currency" -> {
                         Toast.makeText(activity?.applicationContext,"Currency has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,currency)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
+                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.currency))
                         binding.upperLayout.background = resources.getDrawable(R.drawable.currency_gradient)
                     }
                     else-> Toast.makeText(activity?.applicationContext,"nothing has been selected",Toast.LENGTH_LONG).show()
@@ -130,7 +128,6 @@ class ConverterFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
         }
 
@@ -151,17 +148,28 @@ class ConverterFragment : Fragment() {
         }
 
         binding.btnCalculate.setOnClickListener {
-            calculateResult()
+            calculateResult(measurementItem)
         }
 
         showDate()
         return binding.root
     }
 
-    fun calculateResult(){
-        val value =  binding.etConverterOne.text.toString()
-        val result = convertLength(itemBefore,itemAfter,value)
-        binding.tvResult.text=result.toString()
+    fun calculateResult(item:Any){
+        when(item){
+            "Length"->{
+                val value =  binding.etConverterOne.text.toString()
+                val result = convertLength(itemBefore,itemAfter,value)
+                binding.tvResult.text=result.toString()
+            }
+            "Speed"->{
+                val value =  binding.etConverterOne.text.toString()
+                val result = convertSpeed(itemBefore,itemAfter,value)
+                binding.tvResult.text=result.toString()
+
+            }
+        }
+
     }
 
 
@@ -198,6 +206,34 @@ class ConverterFragment : Fragment() {
                 "Kilometre" -> value.toDouble()/100000
                 "Metre" -> value.toDouble()*100
                 "Centimetre"-> value.toDouble() * 1
+                else->0.0
+            }
+        }
+    }
+
+    //function to convert speed units
+    fun convertSpeed(speedBefore:String, speedAfter:String, value : String): Double{
+        return when(speedBefore){
+            "km/hr"-> {
+                when(speedAfter){
+                    "km/hr" -> value.toDouble()*1.0
+                    "mtr/sec" -> value.toDouble()*0.278
+                    "mi/hr"-> value.toDouble() * 0.621
+                    else->0.0
+                }
+            }
+            "mtr/sec"->{
+                when(speedAfter){
+                    "km/hr" -> value.toDouble()*3.6
+                    "mtr/sec" -> value.toDouble()*1.0
+                    "mi/hr"-> value.toDouble() * 2.23
+                    else->0.0
+                }
+            }
+            else -> when(speedAfter){
+                "km/hr" -> value.toDouble()*1.60934
+                "mtr/sec" -> value.toDouble()*0.44704
+                "mi/hr"-> value.toDouble() * 1.0
                 else->0.0
             }
         }

@@ -19,6 +19,11 @@
     <color name="lengthEnd">#49D0E3</color>
     <color name="etLength">#49D0E3</color>
 
+    -----Speed----
+    <color name="speedStart">#FF0204</color>
+
+    ---Currency---
+    <color name="currency">#7A02E8</color>
 
 
 </resources>
