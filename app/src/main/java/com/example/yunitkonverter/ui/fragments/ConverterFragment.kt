@@ -18,6 +18,8 @@ import java.util.*
 
 class ConverterFragment : Fragment() {
     lateinit var binding : FragmentConverterBinding
+    var itemBefore = ""
+    var itemAfter = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -111,11 +113,9 @@ class ConverterFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
 
-        var itemBefore = ""
-        var itemAfter = ""
+
 
         binding.spCategoriesBefore.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
@@ -150,15 +150,21 @@ class ConverterFragment : Fragment() {
             }
         }
 
-        println(measurementItem.toString())
-
-        val value =  binding.etConverterOne.text.toString()
-
-        binding.tvResult.text= convertLength(itemBefore,itemAfter,value).toString()
+        binding.btnCalculate.setOnClickListener {
+            calculateResult()
+        }
 
         showDate()
         return binding.root
     }
+
+    fun calculateResult(){
+        val value =  binding.etConverterOne.text.toString()
+        val result = convertLength(itemBefore,itemAfter,value)
+        binding.tvResult.text=result.toString()
+    }
+
+
 
     //A function to show today's date on the screen
     private fun showDate(){
@@ -176,7 +182,7 @@ class ConverterFragment : Fragment() {
                 when(lengthAfter){
                     "Kilometre" -> value.toDouble()*1.0
                     "Metre" -> value.toDouble()*1000
-                    "Centimeter"-> value.toDouble() * 100000
+                    "Centimetre"-> value.toDouble() * 100000
                     else->0.0
                 }
             }
@@ -184,14 +190,14 @@ class ConverterFragment : Fragment() {
                 when(lengthAfter){
                     "Kilometre" -> value.toDouble()/1000
                     "Metre" -> value.toDouble()*1
-                    "Centimeter"-> value.toDouble() * 100
+                    "Centimetre"-> value.toDouble() * 100
                     else->0.0
                 }
             }
             else -> when(lengthAfter){
                 "Kilometre" -> value.toDouble()/100000
                 "Metre" -> value.toDouble()*100
-                "Centimeter"-> value.toDouble() * 1
+                "Centimetre"-> value.toDouble() * 1
                 else->0.0
             }
         }
