@@ -53,11 +53,11 @@ class ConverterFragment : Fragment() {
             "mtr/sec",
         )
         val currency = listOf(
-            "American Dollar",
-            "Australian Dollar",
-            "British Pound",
+            "Us Dollar",
+            "Au Dollar",
+            "GBP",
             "Euro",
-            "Kenyan Shs",
+            "KShs",
         )
         val measurements = listOf("Length","Speed","Currency","Time")
 
@@ -69,8 +69,9 @@ class ConverterFragment : Fragment() {
 
 
         binding.spMeasurements.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
-            @SuppressLint("UseCompatLoadingForDrawables")
+            @SuppressLint("UseCompatLoadingForDrawables", "ResourceType")
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
                 val item = adapter?.getItemAtPosition(position)
                 when(item){
                     "Length" -> {
@@ -85,9 +86,11 @@ class ConverterFragment : Fragment() {
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,time)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
+                        binding.upperLayout.background = resources.getDrawable(R.drawable.time_gradient)
+                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.time))
+                        binding.tvResult.setTextColor(resources.getColor(R.color.time))
                     }
                     "Speed" -> {
-                        Toast.makeText(activity?.applicationContext,"Speed has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,speed)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
@@ -96,12 +99,12 @@ class ConverterFragment : Fragment() {
                         binding.tvResult.setTextColor(resources.getColor(R.color.speedStart))
                     }
                     "Currency" -> {
-                        Toast.makeText(activity?.applicationContext,"Currency has been selected",Toast.LENGTH_LONG).show()
                         val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,currency)
                         binding.spCategoriesBefore.adapter = categoriesAdapter
                         binding.spCategoriesAfter.adapter = categoriesAdapter
                         binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.currency))
                         binding.upperLayout.background = resources.getDrawable(R.drawable.currency_gradient)
+                        binding.tvResult.setTextColor(resources.getColor(R.color.currency))
                     }
                     else-> Toast.makeText(activity?.applicationContext,"nothing has been selected",Toast.LENGTH_LONG).show()
                 }

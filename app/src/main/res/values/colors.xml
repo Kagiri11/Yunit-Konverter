@@ -20,10 +20,13 @@
     <color name="etLength">#49D0E3</color>
 
     -----Speed----
-    <color name="speedStart">#FF0204</color>
+    <color name="speedStart">#FF5259</color>
 
     ---Currency---
-    <color name="currency">#7A02E8</color>
+    <color name="currency">#99512A</color>
+
+    ----Time---
+    <color name="time">#683C5859</color>
 
 
 </resources>
