@@ -21,45 +21,42 @@ class ConverterFragment : Fragment() {
     var itemBefore = ""
     var itemAfter = ""
     var measurementItem = Any()
+    val length = listOf(
+        "Kilometre",
+        "Metre",
+        "Centimetre",
+    )
+    val time = listOf(
+        "Year",
+        "Month",
+        "Week",
+        "Day",
+        "Hour",
+        "Minute",
+        "Second",
+        "Millisecond",
+
+        )
+    val speed = listOf(
+        "km/hr",
+        "mi/hr",
+        "mtr/sec",
+    )
+    val currency = listOf(
+        "Us Dollar",
+        "Au Dollar",
+        "GBP",
+        "Euro",
+        "KShs",
+    )
+    val measurements = listOf("Length","Speed","Currency","Time")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_converter, container, false)
-        val length = listOf(
-            "Kilometre",
-            "Metre",
-            "Centimetre",
-        )
-        val time = listOf(
-            "Year",
-            "Month",
-            "Week",
-            "Day",
-            "Hour",
-            "Minute",
-            "Second",
-            "Millisecond",
-            "Nanosecond",
-            "Inch",
-            "Nautical Mile",
-            "Furlong",
-            "Light Year"
-        )
-        val speed = listOf(
-            "km/hr",
-            "mi/hr",
-            "mtr/sec",
-        )
-        val currency = listOf(
-            "Us Dollar",
-            "Au Dollar",
-            "GBP",
-            "Euro",
-            "KShs",
-        )
-        val measurements = listOf("Length","Speed","Currency","Time")
+
 
         val measurementsAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner2,measurements)
         binding.spMeasurements.apply {
@@ -72,50 +69,15 @@ class ConverterFragment : Fragment() {
             @SuppressLint("UseCompatLoadingForDrawables", "ResourceType")
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-                val item = adapter?.getItemAtPosition(position)
-                when(item){
-                    "Length" -> {
-                        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,length)
-                        binding.upperLayout.background = resources.getDrawable(R.drawable.length_gradient)
-                        binding.spCategoriesBefore.adapter = categoriesAdapter
-                        binding.spCategoriesAfter.adapter = categoriesAdapter
-                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.etLength))
-                        binding.tvResult.setTextColor(resources.getColor(R.color.etLength))
-                    }
-                    "Time" -> {
-                        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,time)
-                        binding.spCategoriesBefore.adapter = categoriesAdapter
-                        binding.spCategoriesAfter.adapter = categoriesAdapter
-                        binding.upperLayout.background = resources.getDrawable(R.drawable.time_gradient)
-                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.time))
-                        binding.tvResult.setTextColor(resources.getColor(R.color.time))
-                    }
-                    "Speed" -> {
-                        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,speed)
-                        binding.spCategoriesBefore.adapter = categoriesAdapter
-                        binding.spCategoriesAfter.adapter = categoriesAdapter
-                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.speedStart))
-                        binding.upperLayout.background = resources.getDrawable(R.drawable.speed_gradient)
-                        binding.tvResult.setTextColor(resources.getColor(R.color.speedStart))
-                    }
-                    "Currency" -> {
-                        val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,currency)
-                        binding.spCategoriesBefore.adapter = categoriesAdapter
-                        binding.spCategoriesAfter.adapter = categoriesAdapter
-                        binding.btnCalculate.setBackgroundColor(resources.getColor(R.color.currency))
-                        binding.upperLayout.background = resources.getDrawable(R.drawable.currency_gradient)
-                        binding.tvResult.setTextColor(resources.getColor(R.color.currency))
-                    }
-                    else-> Toast.makeText(activity?.applicationContext,"nothing has been selected",Toast.LENGTH_LONG).show()
-                }
-                measurementItem=item!!
+                val item = adapter?.getItemAtPosition(position)!!
+                drawUI(item)
+                measurementItem= item
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
-
 
 
         binding.spCategoriesBefore.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
@@ -156,6 +118,53 @@ class ConverterFragment : Fragment() {
 
         showDate()
         return binding.root
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun drawUI(spinnerItem :Any){
+        when(spinnerItem){
+            "Length" -> {
+                val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,length)
+                binding.apply {
+                    upperLayout.background = resources.getDrawable(R.drawable.length_gradient)
+                    spCategoriesBefore.adapter = categoriesAdapter
+                    spCategoriesAfter.adapter = categoriesAdapter
+                    tvResult.setTextColor(resources.getColor(R.color.etLength))
+                    btnCalculate.setBackgroundColor(resources.getColor(R.color.etLength))
+                }
+            }
+            "Time" -> {
+                val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,time)
+                binding.apply {
+                    btnCalculate.setBackgroundColor(resources.getColor(R.color.time))
+                    upperLayout.background = resources.getDrawable(R.drawable.time_gradient)
+                    spCategoriesBefore.adapter = categoriesAdapter
+                    spCategoriesAfter.adapter = categoriesAdapter
+                    tvResult.setTextColor(resources.getColor(R.color.time))
+                }
+            }
+            "Speed" -> {
+                val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,speed)
+                binding.apply {
+                    btnCalculate.setBackgroundColor(resources.getColor(R.color.speedStart))
+                    upperLayout.background = resources.getDrawable(R.drawable.speed_gradient)
+                    spCategoriesBefore.adapter = categoriesAdapter
+                    spCategoriesAfter.adapter = categoriesAdapter
+                    tvResult.setTextColor(resources.getColor(R.color.speedStart))
+                }
+            }
+            "Currency" -> {
+                val categoriesAdapter = ArrayAdapter(requireActivity(),R.layout.item_spinner,currency)
+                binding.apply {
+                    btnCalculate.setBackgroundColor(resources.getColor(R.color.currency))
+                    upperLayout.background = resources.getDrawable(R.drawable.currency_gradient)
+                    spCategoriesBefore.adapter = categoriesAdapter
+                    spCategoriesAfter.adapter = categoriesAdapter
+                    tvResult.setTextColor(resources.getColor(R.color.currency))
+                }
+            }
+            else-> Toast.makeText(activity?.applicationContext,"nothing has been selected",Toast.LENGTH_LONG).show()
+        }
     }
 
     fun calculateResult(item:Any){
